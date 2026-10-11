@@ -150,7 +150,18 @@ Copilot запитав дозвіл на редагування чутливої
 
 **Відповідь Copilot:** Агент виконав 43 кроки: git-init, create-project, create-build, create-actions, check (усі PASS). Створено `.gitignore`, `.gitattributes`, `Cargo.toml`, `src/main.rs`, `src/lib.rs`, `tests/basic_addition.rs`, `ci.sh`, `ci.bat`, `.github/workflows/ci.yml`. `cargo build`, `cargo test` і `ci.bat` успішні, створено `build/hello.exe`.
 
+**Помилка 1:** Copilot автоматично перемкнувся на іншу модель (Auto), і перевірка через execution-підрядника не стартувала через несумісність моделі. Агент самостійно перейшов на локальний PowerShell і виконав ту саму read-only перевірку.
+
+**Помилка 2:** У команді check пункт и) спочатку дав FAIL через помилку в порівнянні порожнього масиву `git ls-files` у самому перевірочному скрипті, а не через проблему репозиторію. Агент знайшов причину й повторив перевірку з виправленим порівнянням, не змінюючи файли проєкту.
 
 **Ручна перевірка:** переглянула `Cargo.toml`, `tests/basic_addition.rs`, `ci.sh`, `ci.yml`; запустила `cargo test` (BasicAddition ok), `.\ci.bat` (код 0) і `.\build\hello.exe` (Hello, World!). Каталоги `target/` і `build/` не відстежуються Git.
 
 **Рішення:** Результат прийняла (Keep).
+
+## 11.10.2026 — Git і Pull request
+
+- Результат `/init` закомічено в гілку `feature/hello-rust` окремими комітами: проєкт, CI-скрипти, workflow, журнал.
+
+- Створено pull request `lab1/finish` (feature/hello-rust → develop) з описом і посиланнями на журнал AI та архітектуру.
+
+- у `master` змін не вносила, злиття PR виконає викладач після перевірки; викладача додано колаборатором і призначено рев'ювером.
