@@ -143,3 +143,14 @@ Copilot запитав дозвіл на редагування чутливої
 **Запит 2 (виправлення):** Попросила додати передумову: гілка створена від `develop`, файли агента існують, інакше зупинитися.
 
 **Рішення:** Зміни переглянула й прийняла (Keep).
+
+## 11.10.2026 Запуск /init на гілці feature/hello-rust
+
+**Запит:** `/init` у Copilot Chat (режим Agent) на гілці `feature/hello-rust`, створеній від `develop`.
+
+**Відповідь Copilot:** Агент виконав 43 кроки: git-init, create-project, create-build, create-actions, check (усі PASS). Створено `.gitignore`, `.gitattributes`, `Cargo.toml`, `src/main.rs`, `src/lib.rs`, `tests/basic_addition.rs`, `ci.sh`, `ci.bat`, `.github/workflows/ci.yml`. `cargo build`, `cargo test` і `ci.bat` успішні, створено `build/hello.exe`.
+
+
+**Ручна перевірка:** переглянула `Cargo.toml`, `tests/basic_addition.rs`, `ci.sh`, `ci.yml`; запустила `cargo test` (BasicAddition ok), `.\ci.bat` (код 0) і `.\build\hello.exe` (Hello, World!). Каталоги `target/` і `build/` не відстежуються Git.
+
+**Рішення:** Результат прийняла (Keep).
