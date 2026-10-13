@@ -1,4 +1,4 @@
-name: ci
+name: Rust CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [develop, master]
 
 jobs:
-  build:
+  ci:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
