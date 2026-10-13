@@ -1,2 +1,6 @@
 target/
 build/
+.env
+*.pem
+*.key
+*.log

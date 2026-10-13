@@ -19,7 +19,7 @@ agent: build-engineer
 
 а) Перевір, що `.github/agents/build-engineer.agent.md` існує та містить роль агента, заборонені дії й критерії успішного завершення.
 
-б) Перевір кожен із трьох файлів `.github/skills/*/SKILL.md`: `project-scaffold`, `build-and-test` і `github-actions`. Кожен skill має містити призначення, вхідні дані, очікуваний результат, перевірки та типовий сценарій помилки.
+б) Перевір кожен із трьох файлів `.github/skills/*/SKILL.md`: `project-scaffold`, `build-and-test` і `github-actions`. Кожен skill має містити призначення, вхідні дані, приклад входу, очікуваний результат, перевірки та типовий сценарій помилки.
 
 в) Перевір існування шести commands у `.github/prompts/`: `git-init`, `create-project`, `create-build`, `create-actions`, `check`, `init`.
 
@@ -33,7 +33,9 @@ agent: build-engineer
 
 з) Перевір `.github/workflows/ci.yml`: YAML валідний, містить `ubuntu-latest`, `windows-latest`, `macos-latest`, викликає `ci.sh` і `ci.bat`, не містить `cargo` та секретів.
 
-и) Перевір через `git ls-files`, що каталоги `target/` і `build/` не відстежуються Git, і що серед відстежуваних файлів немає секретів. Шукай у відстежуваних файлах за шаблонами `ghp_`, `github_pat_`, `BEGIN PRIVATE KEY`, `password=` і `token=`, виключаючи файли, які самі описують ці шаблони: `.github/prompts/check.prompt.md` і `.github/agents/build-engineer.agent.md`. Збіги в цих файлах не вважаються витоком. У звіті виводь лише імена файлів, ніколи не виводь самі значення. Не виводь значення можливих секретів у звіт.
+и) Перевір через `git ls-files`, що каталоги `target/` і `build/` не відстежуються Git, і що серед відстежуваних файлів немає секретів. Шукай у відстежуваних файлах лише за шаблонами реальних значень: `ghp_[A-Za-z0-9]{30,}`, `github_pat_[A-Za-z0-9_]{30,}`, `-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----`, а також `(?:password|token)=[^\s"']+` — тобто `password=` або `token=` одразу з непорожнім значенням без пробілів і без лапок-плейсхолдерів. Не вважай витоком згадки самих шаблонів у тексті документації. Виключай файли, які самі описують ці шаблони: `.github/prompts/check.prompt.md` і `.github/agents/build-engineer.agent.md`. Збіги в цих файлах не вважаються витоком. У звіті виводь лише імена файлів, ніколи не виводь самі значення. Не виводь значення можливих секретів у звіт.
+
+к) Перевір, що `docs/ai-log.md` існує та містить запити, відповіді, помилки й рішення.
 
 Команди `cargo build`, `cargo test` і `bash ci.sh`/`ci.bat` можуть створити лише каталоги `target/` і `build/` як очікуваний побічний ефект; не видаляй їх під час check.
 
@@ -46,6 +48,7 @@ agent: build-engineer
 б) PASS — ...
 ...
 и) FAIL — ...
+к) PASS — ...
 Загальний результат: FAIL
 ```
 
